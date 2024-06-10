@@ -1,0 +1,20 @@
+{# @pebvariable name="model" type="ru.yarsu.web.models.RoleUserVM" #}
+    {% extends "./partials/layout.peb" %}
+    {% block navbar %}
+        {% for pr in model.listProjects %}
+            <li><a class="dropdown-item" href="/{{ pr.getNameProject(pr) }}?num=1">{{ pr.name }}</a></li>
+        {% endfor %}
+    {% endblock %}
+{%block content%}
+<h1>.</h1>
+<h3>Редактирование роли пользователя</h3>
+<form method="POST">
+    <label for="exampleInputPassword1" class="form-label">Выберите роль пользователя {{ model.name }}</label>
+    <select name = "role" class="form-select">
+        <option value="investor">Инвестор</option>
+        <option value="holderOfCompany">Держатель компании</option>
+        <option value="admin">Админ</option>
+    </select>
+    <button type="submit" class="btn btn-primary">Отправить</button>
+</form>
+{%endblock%}

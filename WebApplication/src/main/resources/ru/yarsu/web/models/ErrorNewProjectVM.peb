@@ -1,0 +1,86 @@
+{# @pebvariable name="model" type="ru.yarsu.web.models.ErrorNewProjectVM" #}
+    {% extends "./partials/layout.peb" %}
+    {% block navbar %}
+        {% for pr in model.listProjects %}
+            <li><a class="dropdown-item" href="/{{ pr.getNameProject(pr) }}?num=1">{{ pr.name }}</a></li>
+        {% endfor %}
+    {% endblock %}
+{% block content %}
+<h1>.</h1>
+    <h3>Опишите ваш проект</h3>
+<form method="POST">
+     <div class="mb-3">
+        <label for="exampleInputPassword1" class="form-label">Введите название проекта</label>
+        <input name="name" type="text" class="form-control" id="exampleInputPassword1" value = "{{ model.name }}">
+    </div>
+    {% if model.errors.getErrorsByKey(model.name) is not empty %}
+        {% for error in model.errors.getErrorsByKey(model.name) %}
+            <p><strong>{{error}}</strong></p>
+        {% endfor %}
+    {% endif %}
+    <div class="mb-3">
+        <label for="exampleInputPassword1" class="form-label">Введите название компании</label>
+        <input name="nameCompany" type="text" class="form-control" id="exampleInputPassword1" value = "{{ model.nameCompany }}">
+    </div>
+    {% if model.errors.getErrorsByKey(model.nameCompany) is not empty %}
+    {% for error in model.errors.getErrorsByKey(model.nameCompany) %}
+            <p><strong>{{error}}</strong></p>
+        {% endfor %}
+{% endif %}
+    <div class="mb-3">
+        <label for="exampleInputPassword1" class="form-label">Введите имя предпринимателя</label>
+        <input name="namePerson" type="text" class="form-control" id="exampleInputPassword1" value = "{{ model.namePerson }}">
+    </div>
+    {% if model.errors.getErrorsByKey(model.namePerson) is not empty %}
+    {% for error in model.errors.getErrorsByKey(model.namePerson) %}
+            <p><strong>{{error}}</strong></p>
+        {% endfor %}
+{% endif %}
+    <div class="mb-3">
+        <label for="exampleInputPassword1" class="form-label">Введите фамилию предпринимателя</label>
+        <input name="surnamePerson" type="text" class="form-control" id="exampleInputPassword1" value = "{{ model.surnamePerson }}">
+    </div>
+    {% if model.errors.getErrorsByKey(model.surnamePerson) is not empty %}
+    {% for error in model.errors.getErrorsByKey(model.surnamePerson) %}
+            <p><strong>{{error}}</strong></p>
+        {% endfor %}
+{% endif %}
+    <div class="mb-3">
+        <label for="exampleInputPassword1" class="form-label">Введите email</label>
+        <input name="email" type="text" class="form-control" id="exampleInputPassword1" value = "{{ model.email }}">
+    </div>
+    {% if model.errors.getErrorsByKey(model.email) is not empty %}
+    {% for error in model.errors.getErrorsByKey(model.email) %}
+            <p><strong>{{error}}</strong></p>
+        {% endfor %}
+{% endif %}
+    <div class="mb-3">
+        <label for="exampleInputPassword1" class="form-label">Введите целевой размер проекта</label>
+        <input name="targetSum" type="text" class="form-control" id="exampleInputPassword1" value = "{{ model.targetSum }}">
+    </div>
+    {% if model.errors.getErrorsByKey(model.targetSum) is not empty %}
+    {% for error in model.errors.getErrorsByKey(model.targetSum) %}
+            <p><strong>{{error}}</strong></p>
+        {% endfor %}
+{% endif %}
+    <div class="mb-3">
+        <label for="exampleInputPassword1" class="form-label">Введите дату окончания сбора средств <strong>(если вводите вручную, то в формате "yyyy-MM-ddTHH:mm")</strong></label>
+        <input name="dateEnd" type="text" class="form-control" id="exampleInputPassword1" value = "{{ model.dateEnd }}">
+    </div>
+    {% if model.errors.getErrorsByKey(model.dateEnd) is not empty %}
+    {% for error in model.errors.getErrorsByKey(model.dateEnd) %}
+            <p><strong>{{error}}</strong></p>
+        {% endfor %}
+{% endif %}
+    <div class="mb-3">
+        <label for="exampleInputPassword1" class="form-label">Введите описание проекта</label>
+        <input name="description" type="text" class="form-control" id="exampleInputPassword1" value = "{{ model.description }}">
+    </div>
+    {% if model.errors.getErrorsByKey(model.description) is not empty %}
+    {% for error in model.errors.getErrorsByKey(model.description) %}
+            <p><strong>{{error}}</strong></p>
+        {% endfor %}
+{% endif %}
+    <button type="submit" class="btn btn-primary">Отправить</button>
+</form>
+{% endblock %}

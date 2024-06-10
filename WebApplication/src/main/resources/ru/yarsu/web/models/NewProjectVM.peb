@@ -1,0 +1,46 @@
+{# @pebvariable name="model" type="ru.yarsu.web.models.NewProjectVM" #}
+    {% extends "./partials/layout.peb" %}
+    {% block navbar %}
+        {% for pr in model.listProjects %}
+            <li><a class="dropdown-item" href="/{{ pr.getNameProject(pr) }}?num=1">{{ pr.name }}</a></li>
+        {% endfor %}
+    {% endblock %}
+{% block content %}
+<h1>.</h1>
+    <h3>Опишите ваш проект</h3>
+<form method="POST">
+     <div class="mb-3">
+        <label for="exampleInputPassword1" class="form-label">Введите название проекта</label>
+        <input name="name" type="text" class="form-control" id="exampleInputPassword1">
+    </div>
+    <div class="mb-3">
+        <label for="exampleInputPassword1" class="form-label">Введите название компании</label>
+        <input name="nameCompany" type="text" class="form-control" id="exampleInputPassword1">
+    </div>
+    <div class="mb-3">
+        <label for="exampleInputPassword1" class="form-label">Введите имя предпринимателя</label>
+        <input name="namePerson" type="text" class="form-control" id="exampleInputPassword1">
+    </div>
+    <div class="mb-3">
+        <label for="exampleInputPassword1" class="form-label">Введите фамилию предпринимателя</label>
+        <input name="surnamePerson" type="text" class="form-control" id="exampleInputPassword1">
+    </div>
+    <div class="mb-3">
+        <label for="exampleInputPassword1" class="form-label">Введите email</label>
+        <input name="email" type="text" class="form-control" id="exampleInputPassword1">
+    </div>
+    <div class="mb-3">
+        <label for="exampleInputPassword1" class="form-label">Введите целевой размер проекта</label>
+        <input name="targetSum" type="text" class="form-control" id="exampleInputPassword1">
+    </div>
+    <div class="mb-3">
+        <label for="datetime-local">Введите дату окончания сбора средств</label>
+        <input name="dateEnd" type="datetime-local" id="datetime-local">
+    </div>
+    <div class="mb-3">
+        <label for="exampleInputPassword1" class="form-label">Введите описание проекта</label>
+        <input name="description" type="text" class="form-control" id="exampleInputPassword1">
+    </div>
+    <button type="submit" class="btn btn-primary">Отправить</button>
+</form>
+{% endblock %}

@@ -1,0 +1,72 @@
+{# @pebvariable name="model" type="ru.yarsu.web.models.ProjectVM" #}
+{% extends "./partials/layout.peb" %}
+    {% block navbar %}
+        {% for pr in model.listProjects %}
+            <li><a class="dropdown-item" href="/{{ pr.getNameProject(pr) }}?num=1">{{ pr.name }}</a></li>
+        {% endfor %}
+    {% endblock %}
+{% block title %}{{ model.name }}{% endblock %}
+{% block content %}
+<h1>.</h1>
+    <h1 class="text-center">Проект {{ model.projects.name }}</h1>
+    <dl class="row">
+        <dt class="col-sm-3">Название компании</dt>
+        <dd class="col-sm-9">{{ model.projects.company.nameCompany }}</dd>
+        <dt class="col-sm-3">Имя представителя</dt>
+        <dd class="col-sm-9">{{ model.projects.company.namePerson }} {{ model.projects.company.surnamePerson }}</dd>
+        <dt class="col-sm-3">Почта</dt>
+        <dd class="col-sm-9">{{ model.projects.company.email }}</dd>
+        <dt class="col-sm-3">Описание проекта</dt>
+        <dd class="col-sm-9">{{ model.projects.description }}</dd>
+        <dt class="col-sm-3">Целевой размер фонда</dt>
+        <dd class="col-sm-9">{{ model.projects.targetSum }} рублей</dd>
+        <dt class="col-sm-3">Дата начала сбора средств</dt>
+        <dd class="col-sm-9">{{ model.projects.getDate(model.projects.dateStart) }}</dd>
+        <dt class="col-sm-3">Срок окончания сбора средств</dt>
+        <dd class="col-sm-9">{{ model.projects.getDate(model.projects.dateEnd) }}</dd>
+    </dl>
+    <form method="GET">
+        <input type="hidden" name="num" value="1">
+        <div class="mb-3">
+            <label for="exampleInputEmail1" class="form-label">Введите минимальную сумму взноса</label>
+            <input name="min" type="number" class="form-control" value="{{ model.minn }}" id="exampleInputEmail1">
+        </div>
+        <div class="mb-3">
+            <label for="exampleInputPassword1" class="form-label">Введите максимальную сумму взноса</label>
+            <input name="max" type="number" class="form-control" value="{{ model.max }}" id="exampleInputPassword1">
+        </div>
+        <button type="submit" class="btn btn-primary">Отправить</button>
+    </form>
+    {% if user.idUser != null %}
+        <a class="btn btn-primary" href="/{{ model.name }}/new">Добавить новый взнос</a>
+    {% endif %}
+    {% if user.idUser == model.projects.idMan or user.role == "admin"%}
+        <a class="btn btn-primary" href="/{{ model.name }}/edit">Редактировать проект</a>
+        <a class="btn btn-primary" href="/{{ model.name }}/delete">Удалить проект</a>
+    {% endif %}
+    {% if model.contr.isEmpty() %}
+            <h3 class="text-center">На этой странице нет подходящих элементов</h3>
+    {% endif %}
+    <table class="table table-info table-bordered caption-top">
+        <caption>Список людей, поддержавших проект</caption>
+        <thead>
+            <tr>
+                <td><strong>Дата взноса</strong></td>
+                <td><strong>Информация</strong></td>
+            </tr>
+        </thead>
+        {% for vznos in model.contr %}
+            <tr>
+                <td>{{ vznos.getDate(vznos.date) }}</td>
+                <td><a class="btn btn-primary" href="/{{ model.name }}/{{ vznos.id }}">Подробная информация</a></td>
+            </tr>
+        {% endfor %}
+    </table>
+    {% for pages in model.paginator.previousPages() %}
+        <a class="btn btn-primary" href="{{ pages.second }}">{{ pages.first }}</a>
+    {% endfor %}
+    <a class="btn btn-primary active" href="{{ model.paginator.uri }}">{{ model.paginator.numberPage }}</a>
+    {% for pages in model.paginator.nextPages() %}
+        <a class="btn btn-primary" href="{{ pages.second }}">{{ pages.first }}</a>
+    {% endfor %}
+{% endblock %}

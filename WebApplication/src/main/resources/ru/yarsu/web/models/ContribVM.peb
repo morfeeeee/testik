@@ -1,0 +1,26 @@
+{# @pebvariable name="model" type="ru.yarsu.web.models.ContribVM" #}
+{% extends "./partials/layout.peb" %}
+    {% block navbar %}
+        {% for pr in model.listProjects %}
+            <li><a class="dropdown-item" href="/{{ pr.getNameProject(pr) }}?num=1">{{ pr.name }}</a></li>
+        {% endfor %}
+    {% endblock %}
+{% block content %}
+<h1>.</h1>
+    <h3>Взнос в проект</h3>
+    <dl class="row">
+        <dt class="col-sm-3">Дата взноса</dt>
+        <dd class="col-sm-9">{{ model.contrib.getDate() }}</dd>
+        <dt class="col-sm-3">Сумма взноса в рублях</dt>
+        <dd class="col-sm-9">{{ model.contrib.sum }}</dd>
+        <dt class="col-sm-3">Идентификатор взноса</dt>
+        <dd class="col-sm-9">{{ model.contrib.id }}</dd>
+        <dt class="col-sm-3">Идентификатор человека</dt>
+        <dd class="col-sm-9">{{ model.contrib.idUSER }}</dd>
+    </dl>
+    {% if user.idUser == model.contrib.idUSER  or user.role == "admin"%}
+        <a class="btn btn-primary" href="/{{ model.name }}/{{ model.contrib.id }}/edit">Редактирование взноса</a>
+        <a class="btn btn-primary" href="/{{ model.name }}/{{ model.contrib.id }}/delete">Удаление взноса</a>
+    {% endif %}
+
+{% endblock %}

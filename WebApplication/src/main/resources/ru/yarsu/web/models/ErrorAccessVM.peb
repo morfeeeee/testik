@@ -1,0 +1,12 @@
+{# @pebvariable name="model" type="ru.yarsu.web.models.ErrorAccessVM" #}
+    {% extends "./partials/layout.peb" %}
+    {% block title %}Error{% endblock %}
+    {% block navbar %}
+        {% for pr in model.listProjects %}
+            <li><a class="dropdown-item" href="/{{ pr.getNameProject(pr) }}?num=1">{{ pr.name }}</a></li>
+        {% endfor %}
+    {% endblock %}
+{% block content %}
+    <h1>.</h1>
+    <h2>У вас недостаточно прав для просмотра этой страницы</h2>
+{% endblock content %}

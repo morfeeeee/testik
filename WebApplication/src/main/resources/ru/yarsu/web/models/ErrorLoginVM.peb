@@ -1,0 +1,32 @@
+{# @pebvariable name="model" type="ru.yarsu.web.models.ErrorNewUserVM" #}
+    {% extends "./partials/layout.peb" %}
+    {% block navbar %}
+        {% for pr in model.listProjects %}
+            <li><a class="dropdown-item" href="/{{ pr.getNameProject(pr) }}?num=1">{{ pr.name }}</a></li>
+        {% endfor %}
+    {% endblock %}
+{% block content %}
+<h1>.</h1>
+    <h3>Повторите вход</h3>
+<form method="POST">
+     <div class="mb-3">
+        <label for="exampleInputPassword1" class="form-label">Введите имя пользователя</label>
+        <input name="nameUser" type="text" class="form-control" id="exampleInputPassword1" value = "{{ model.name }}">
+    </div>
+    {% if model.errors.getErrorsByKey(model.name) is not empty %}
+    {% for error in model.errors.getErrorsByKey(model.name) %}
+            <p><strong>{{error}}</strong></p>
+        {% endfor %}
+{% endif %}
+    <div class="mb-3">
+        <label for="exampleInputPassword1" class="form-label">Введите пароль</label>
+        <input name="password1" type="password" class="form-control" id="exampleInputPassword1" value = "{{ model.password1 }}">
+    </div>
+    {% if model.errors.getErrorsByKey(model.password1) is not empty %}
+    {% for error in model.errors.getErrorsByKey(model.password1) %}
+            <p><strong>{{error}}</strong></p>
+        {% endfor %}
+{% endif %}
+    <button type="submit" class="btn btn-primary">Отправить</button>
+</form>
+{% endblock %}

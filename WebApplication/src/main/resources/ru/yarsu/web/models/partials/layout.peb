@@ -1,0 +1,59 @@
+<!doctype html>
+<html lang="ru">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>{% block title %}{% endblock %}</title>
+    <link href="/css/bootstrap.min.css" rel="stylesheet">
+  </head>
+  <body>
+    <div id="content">
+        <nav class="navbar bg-body-tertiary fixed-top">
+          <div class="container-fluid">
+            <a class="navbar-brand" href="#">Навигация по сайту</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasNavbar" aria-controls="offcanvasNavbar" aria-label="Переключить навигацию">
+              <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvasNavbar" aria-labelledby="offcanvasNavbarLabel">
+              <div class="offcanvas-header">
+                <h5 class="offcanvas-title" id="offcanvasNavbarLabel">Меню</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Закрыть"></button>
+              </div>
+              <div class="offcanvas-body">
+                <ul class="navbar-nav justify-content-end flex-grow-1 pe-3">
+                  <li class="nav-item">
+                    <a class="nav-link active" aria-current="page" href="/"><strong>Домашняя страница</strong></a>
+                  </li>
+                    {% if user.nameUser is empty %}
+                        <li class="nav-item">
+                            <a class="nav-link" href="/login">Вход в аккаунт</a>
+                        </li>
+                        {% elseif user.nameUser is not empty %}
+	                        <p><strong>Добро пожаловать на сайт {{ user.nameUser }}!</strong></p>
+	                        <a class="nav-link" href="/listContrib">Список поддержаных проектов</a>
+	                        <a class="nav-link" href="/logout">Выход из аккаунта</a>
+                        {% else %}
+                    {% endif %}
+                    {% if user.role == "admin" %}
+                        <li class="nav-item">
+                            <a class="nav-link" href="/users">Управление пользователями</a>
+                        </li>
+                    {% endif %}
+                  <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                      Список проектов
+                    </a>
+                    <ul class="dropdown-menu">
+                      {% block navbar %}{% endblock %}
+                    </ul>
+                  </li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </nav>
+    </div>
+    {% block content %}{% endblock %}
+    <script src="/js/bootstrap.bundle.min.js"></script>
+  </body>
+</html>

@@ -1,0 +1,42 @@
+{# @pebvariable name="model" type="ru.yarsu.web.models.UserManagementVM" #}
+{% extends "./partials/layout.peb" %}
+    {% block title %}User management{% endblock %}
+{% block navbar %}
+    {% for pr in model.listProjects %}
+            <li><a class="dropdown-item" href="/{{ pr.getNameProject(pr) }}?num=1">{{ pr.name }}</a></li>
+        {% endfor %}
+{% endblock %}
+{% block content %}
+<h1>.</h1>
+    <figure class="text-center">
+      <blockquote class="blockquote">
+        <p>Добро пожаловать на сайт совместного финансирования проектов</p>
+        <a class="btn btn-primary btn-lg" href="/newUser">Добавить пользователя</a>
+      </blockquote>
+    </figure>
+    <div class="container mt-5">
+        <h2 class="mb-4 text-center">Список зарегестрированных пользователей</h2>
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th scope="col">ID</th>
+                    <th scope="col">Имя</th>
+                    <th scope="col">Права</th>
+                    <th scope="col">Удаление пользователя</th>
+                    <th scope="col">Редактирование роли пользователя</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for user in model.listUsers %}
+                    <tr>
+                        <th scope="row">{{ user.idUser }}</th>
+                        <td>{{ user.nameUser }}</td>
+                        <td>{{ user.role }}</td>
+                        <td><a class="btn btn-primary" href="/users/{{ user.idUser }}/delete">Удалить пользователя</a></td>
+                        <td><a class="btn btn-primary" href="/users/{{ user.idUser }}/role">Редактирование пользователя</a></td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+{% endblock %}

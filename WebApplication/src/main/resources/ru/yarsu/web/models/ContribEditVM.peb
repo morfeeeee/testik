@@ -1,0 +1,18 @@
+{# @pebvariable name="model" type="ru.yarsu.web.models.ContribEditVM" #}
+    {% extends "./partials/layout.peb" %}
+    {% block navbar %}
+        {% for pr in model.listProjects %}
+            <li><a class="dropdown-item" href="/{{ pr.getNameProject(pr) }}?num=1">{{ pr.name }}</a></li>
+        {% endfor %}
+    {% endblock %}
+{% block content %}
+<h1>.</h1>
+    <h3>Редактирование взноса</h3>
+<form method="POST">
+    <div class="mb-3">
+        <label for="exampleInputEmail1" class="form-label">Сумма взноса</label>
+        <input name="sum" type="text" class="form-control" value="{{ model.contrib.sum }}" id="exampleInputEmail1">
+    </div>
+    <button type="submit" class="btn btn-primary">Отправить</button>
+</form>
+{% endblock %}

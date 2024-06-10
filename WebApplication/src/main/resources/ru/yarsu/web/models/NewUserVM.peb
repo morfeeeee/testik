@@ -1,0 +1,32 @@
+{# @pebvariable name="model" type="ru.yarsu.web.models.NewUserVM" #}
+    {% extends "./partials/layout.peb" %}
+    {% block navbar %}
+        {% for pr in model.listProjects %}
+            <li><a class="dropdown-item" href="/{{ pr.getNameProject(pr) }}?num=1">{{ pr.name }}</a></li>
+        {% endfor %}
+    {% endblock %}
+{% block content %}
+    <h1>.</h1>
+    <h3>Новый пользователь</h3>
+<form method="POST">
+     <div class="mb-3">
+        <label for="exampleInputPassword1" class="form-label">Введите имя пользователя</label>
+        <input name="nameUser" type="text" class="form-control" id="exampleInputPassword1">
+    </div>
+    <div class="mb-3">
+        <label for="exampleInputPassword1" class="form-label">Введите пароль</label>
+        <input name="password1" type="password" class="form-control" id="exampleInputPassword1">
+    </div>
+    <div class="mb-3">
+        <label for="exampleInputPassword1" class="form-label">Повторите пароль</label>
+        <input name="password2" type="password" class="form-control" id="exampleInputPassword1">
+    </div>
+    <label for="exampleInputPassword1" class="form-label">Выберите роль пользователя</label>
+    <select name = "role" class="form-select">
+        <option value="investor">Инвестор</option>
+        <option value="holderOfCompany">Держатель компании</option>
+        <option value="admin">Админ</option>
+    </select>
+    <button type="submit" class="btn btn-primary">Отправить</button>
+</form>
+{% endblock %}

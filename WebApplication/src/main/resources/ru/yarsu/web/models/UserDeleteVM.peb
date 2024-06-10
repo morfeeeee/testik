@@ -1,0 +1,24 @@
+{# @pebvariable name="model" type="ru.yarsu.web.models.UserDeleteVM" #}
+    {% extends "./partials/layout.peb" %}
+    {% block navbar %}
+        {% for pr in model.listProjects %}
+            <li><a class="dropdown-item" href="/{{ pr.getNameProject(pr) }}?num=1">{{ pr.name }}</a></li>
+        {% endfor %}
+    {% endblock %}
+{%block content%}
+<h1>.</h1>
+<h3>Удаление пользователя</h3>
+<form method="POST" class="row g-3">
+  <div class="col-12">
+    <div class="form-check">
+    <label class="form-check-label" for="invalidCheck">
+      <input name="checkbox" class="form-check-input" type="checkbox" value="" id="invalidCheck" required>
+        Хотите ли вы действительно удалить пользователя с ником: {{model.name}}
+      </label>
+    </div>
+  </div>
+  <div class="col-12">
+    <button class="btn btn-primary" type="submit">Отправить форму</button>
+  </div>
+</form>
+{%endblock%}
